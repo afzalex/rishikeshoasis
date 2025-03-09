@@ -1,6 +1,6 @@
-import { getBaseUrl } from './constants';
+import { getAssetsUrl } from './constants';
 
-const baseUrl = getBaseUrl();
+const baseUrl = getAssetsUrl();
 
 export const sliderImages = [
   {
