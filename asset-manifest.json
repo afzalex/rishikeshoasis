@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rishikeshoasis/static/css/main.fc199e04.css",
-    "main.js": "/rishikeshoasis/static/js/main.a86bf15b.js",
+    "main.js": "/rishikeshoasis/static/js/main.df3c401a.js",
     "static/js/453.cb3e9a9c.chunk.js": "/rishikeshoasis/static/js/453.cb3e9a9c.chunk.js",
     "index.html": "/rishikeshoasis/index.html",
     "main.fc199e04.css.map": "/rishikeshoasis/static/css/main.fc199e04.css.map",
-    "main.a86bf15b.js.map": "/rishikeshoasis/static/js/main.a86bf15b.js.map",
+    "main.df3c401a.js.map": "/rishikeshoasis/static/js/main.df3c401a.js.map",
     "453.cb3e9a9c.chunk.js.map": "/rishikeshoasis/static/js/453.cb3e9a9c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fc199e04.css",
-    "static/js/main.a86bf15b.js"
+    "static/js/main.df3c401a.js"
   ]
 }
