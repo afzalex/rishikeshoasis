@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <HelmetProvider>
-      <Router>
+      <Router basename="/rishikeshoasis">
         <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
