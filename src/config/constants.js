@@ -4,5 +4,5 @@ export const getBaseUrl = () => {
 
 // For assets like images
 export const getAssetsUrl = () => {
-  return ''; // No prefix needed for custom domain
+  return process.env.PUBLIC_URL || ''; // Use PUBLIC_URL for correct asset paths
 }; 

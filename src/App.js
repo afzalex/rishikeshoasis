@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
-          {/* Add more routes here as you create new pages */}
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>
     </HelmetProvider>

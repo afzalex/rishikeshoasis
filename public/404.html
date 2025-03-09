@@ -4,17 +4,12 @@
     <meta charset="utf-8">
     <title>Rishikesh Oasis Retreat</title>
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
+      var pathSegmentsToKeep = 0;
       var l = window.location;
-      
-      // Redirect to the base URL while preserving the path
-      var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        '/?p=' + l.pathname.slice(1).replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash;
-
-      window.location.replace(redirectUrl);
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        '/#' + l.pathname.slice(1)
+      );
     </script>
   </head>
   <body>
