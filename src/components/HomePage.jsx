@@ -6,44 +6,75 @@ import ImageSlider from './ImageSlider';
 import Footer from './Footer';
 import LoadingScreen from './LoadingScreen';
 import { sliderImages } from '../config/images';
+import { BUSINESS_INFO } from '../config/constants';
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     const loadImage = (url) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = url;
-        img.onload = () => {
-          setImagesLoaded(prev => prev + 1);
-          resolve();
-        };
+        img.onload = resolve;
         img.onerror = reject;
       });
     };
 
-    Promise.all(sliderImages.map(image => loadImage(image.url)))
-      .then(() => {
+    // Start at 0%
+    setLoadingProgress(0);
+
+    // Load all images and track progress
+    const totalResources = sliderImages.length;
+    let loadedResources = 0;
+
+    // Load images and update progress
+    Promise.all(
+      sliderImages.map(image => 
+        loadImage(image.url)
+          .then(() => {
+            loadedResources++;
+            setLoadingProgress((loadedResources / totalResources) * 90); // Up to 90%
+          })
+          .catch(error => {
+            console.error('Error loading image:', error);
+            loadedResources++;
+            setLoadingProgress((loadedResources / totalResources) * 90);
+          })
+      )
+    ).then(() => {
+      // After images are loaded, wait for window load event
+      if (document.readyState === 'complete') {
+        setLoadingProgress(100);
         setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error loading images:', error);
-        setIsLoading(false); // Still hide loading screen even if some images fail
+      } else {
+        window.addEventListener('load', () => {
+          setLoadingProgress(100);
+          setIsLoading(false);
+        });
+      }
+    });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('load', () => {
+        setLoadingProgress(100);
+        setIsLoading(false);
       });
+    };
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>Rishikesh Oasis Retreat - Welcome</title>
-        <meta name="description" content="Welcome to Rishikesh Oasis Retreat - Your peaceful sanctuary in Rishikesh" />
+        <title>{BUSINESS_INFO.name} - {BUSINESS_INFO.tagline}</title>
+        <meta name="description" content={BUSINESS_INFO.description} />
       </Helmet>
 
       <LoadingScreen 
         isLoading={isLoading} 
-        progress={(imagesLoaded / sliderImages.length) * 100} 
+        progress={loadingProgress} 
       />
 
       <AnimatePresence>
@@ -70,7 +101,7 @@ const HomePage = () => {
                     transition={{ duration: 0.6 }}
                     className="text-3xl md:text-4xl font-bold text-gray-800 mb-6"
                   >
-                    Welcome to Rishikesh Oasis Retreat
+                    Welcome to {BUSINESS_INFO.name}
                   </motion.h2>
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -78,9 +109,7 @@ const HomePage = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="text-gray-600 text-lg"
                   >
-                    Discover inner peace and spiritual growth in the yoga capital of the world.
-                    Our retreat offers a perfect blend of traditional yoga practices, meditation,
-                    and modern comfort to help you on your journey of self-discovery.
+                    {BUSINESS_INFO.description}
                   </motion.p>
                 </div>
               </section>
